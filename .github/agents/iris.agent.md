@@ -1,6 +1,6 @@
 ---
 name: iris
-description: IRIS - Insurance Rule Impact Simulation System. Autonomously simulates portfolio-level pricing rule impact, evaluates compliance, makes deterministic decisions, and maintains audit logs. Use for portfolio impact analysis, compliance validation, rule evaluation, and audit trails. Fully deterministic, observable, safe.
+description: IRIS - Insurance Rule Impact Simulation. Policy rule impact simulator with manual & agent modes. Simulates portfolio-level pricing impact, evaluates compliance, makes deterministic decisions, maintains audit logs. Use for portfolio analysis, compliance validation, governance. Deterministic, observable, auditable.
 ---
 
 # IRIS Agent

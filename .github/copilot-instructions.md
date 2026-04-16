@@ -1,7 +1,7 @@
-# IRIS: Insurance Rule Impact Simulation System
+# IRIS: Insurance Rule Impact Simulation
 
 ## Overview
-This workspace contains **IRIS** (**Insurance Rule Impact Simulation** System) - a platform that autonomously simulates pricing rule impact on entire insurance portfolios, validates compliance, and makes deterministic deployment decisions.
+This workspace contains **IRIS** (**Insurance Rule Impact Simulation**) - a policy rule impact simulation and audit governance system. Simulates how pricing rules affect insurance portfolios, validates compliance, and makes deterministic decisions. Supports both manual (traditional UI) and agent (autonomous) modes.
 
 ## Agent Behavior & Principles
 

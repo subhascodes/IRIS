@@ -1,6 +1,6 @@
-# 🌈 IRIS: Insurance Rule Impact Simulation System
+# 🌈 IRIS: Insurance Rule Impact Simulation
 
-**Portfolio-Level Impact Simulation & Autonomous Pricing Rule Governance**
+**Policy Rule Impact Simulation & Audit Governance System with Both Manual and Agent Modes**
 
 ---
 
