@@ -1,0 +1,92 @@
+{
+  "version": "1.0.0",
+  "description": "Pre-execution security hooks for Guidewire agent",
+  "hooks": [
+    {
+      "id": "block-credentials-read",
+      "event": "PreToolUse",
+      "name": "Block Credential File Access",
+      "description": "Prevent agent from reading sensitive credentials file",
+      "condition": {
+        "tool": "read_file",
+        "pattern": "data/credentials\\.json"
+      },
+      "action": "block",
+      "reason": "Credential protection: agents cannot access credentials.json",
+      "fallback": "Use environment variables instead"
+    },
+    {
+      "id": "block-code-modification",
+      "event": "PreToolUse",
+      "name": "Block Source Code Modifications",
+      "description": "Prevent agent from modifying source files",
+      "condition": {
+        "tool": "replace_string_in_file|edit_notebook_file|create_file",
+        "pattern": "\\.(py|md|json|yaml)$",
+        "exclude_dirs": ["data/", "logs/", ".github/"]
+      },
+      "action": "block",
+      "reason": "Code integrity: agent cannot modify source"
+    },
+    {
+      "id": "block-audit-deletion",
+      "event": "PreToolUse",
+      "name": "Block Audit Log Deletion",
+      "description": "Prevent deletion or overwrite of audit logs (append-only)",
+      "condition": {
+        "tool": "run_in_terminal",
+        "pattern": "rm.*audit_log|overwrite.*audit_log"
+      },
+      "action": "block",
+      "reason": "Audit integrity: logs are append-only and immutable"
+    },
+    {
+      "id": "warn-external-api",
+      "event": "PreToolUse",
+      "name": "Warn on External API Calls",
+      "description": "Alert on any external API or network calls",
+      "condition": {
+        "tool": "run_in_terminal",
+        "pattern": "curl|wget|http|api\\..*\\.com"
+      },
+      "action": "warn",
+      "reason": "External integrations require explicit approval"
+    }
+  ],
+  "constraints": {
+    "max_execution_time_seconds": 300,
+    "max_memory_mb": 2048,
+    "allowed_file_operations": ["read", "append"],
+    "blocked_directories": ["data/credentials.json", ".git/", "venv/"],
+    "allowed_commands": [
+      "python",
+      "grep",
+      "find",
+      "ls",
+      "cat",
+      "tail",
+      "head",
+      "wc",
+      "cd",
+      "pwd"
+    ],
+    "blocked_commands": [
+      "rm",
+      "mv",
+      "cp",
+      "chmod",
+      "chown",
+      "sudo",
+      "curl",
+      "wget",
+      "git push"
+    ]
+  },
+  "logging": {
+    "log_all_decisions": true,
+    "log_file": "logs/agent_decisions.log",
+    "include_compliance_metrics": true,
+    "include_execution_path": true,
+    "mask_sensitive_data": true
+  }
+}
